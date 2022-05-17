@@ -6,9 +6,9 @@
 
 ## 1. Merhaba Dunya [Merhaba Dunya Uygulaması](https://github.com/techakademi/OCI-Kubernetes-Notlar/blob/main/01-Merhaba-Dunya)
 
-## 2. 02-Whoami [Ben kimmim :) Uygulaması](https://github.com/techakademi/OCI-Kubernetes-Notlar/blob/main/02-Whoami)
+## 2. Whoami [Ben kimmim :) Uygulaması](https://github.com/techakademi/OCI-Kubernetes-Notlar/blob/main/02-Whoami)
 
-## 3. 03-SSL [Ssl Sertifika Uygulaması](https://github.com/techakademi/OCI-Kubernetes-Notlar/blob/main/03-SSL-Uygulama)
+## 3. SSL [Ssl Sertifika Uygulaması](https://github.com/techakademi/OCI-Kubernetes-Notlar/blob/main/03-SSL-Uygulama)
 
 ## 4. WRP Proje [Wordpress Hosting Projesi](https://github.com/techakademi/OCI-Kubernetes-Notlar/blob/main/04-WordpressProjesi)
 
