@@ -1,49 +1,44 @@
-ß#!/bin/bash
+#!/bin/bash
+
 # Bu skript ile, Ubuntu işletim sistemine yeni Kubernetes'in son sürümün yükleme işlemini gerçekleştirebilirsiniz.
 echo
 echo -------------------------------------------------------------------------------------
-echo "Merhaba, Ben Kubernetes için K9s kuracak olan Droid'inim."
+echo "Merhaba, Ben Kubernetes için Helm kuracak olan Droid'inim."
 echo -------------------------------------------------------------------------------------
 sleep 2
-echo -------------------------------------------------------------------------------------
-echo "!!Dikkat, ((ARM)) işlemci tipine göre tasarlandım!!!"
-echo -------------------------------------------------------------------------------------
-
-# local bin klasörüne git
+# Helm paketi indir
 echo
 echo -------------------------------------------------------------------------------------
-echo "Local bin klasörüne gidiyorum."
+echo "Github'dan helm skriptini indiriyorum."
 echo -------------------------------------------------------------------------------------
 sleep 2
 echo
-cd /usr/local/bin/
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 sleep 1
 
-# Github'dan paket indirme işlemi
+# Skripte çalışma izni ver
 echo
 echo -------------------------------------------------------------------------------------
-echo "https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_arm.tar.gz paketini indiriyorum."
+echo "Helm skriptine çalışma izni veriyorum :)"
 echo -------------------------------------------------------------------------------------
 sleep 2
 echo
-sudo wget https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_arm.tar.gz
+chmod 700 get_helm.sh
 sleep 1
 
-# Arşivi çıkar
+# Helm kur
 echo
 echo -------------------------------------------------------------------------------------
-echo "k9s_Linux_arm.tar.gz Arşivi çıkarıyorum"
+echo "Helm'i kuruyorum"
 echo -------------------------------------------------------------------------------------
 sleep 2
 echo
-sudo tar zxf k9s_Linux_arm.tar.gz
+./get_helm.sh
 sleep 1
 
-# K9s'i yeni bir ekran da çalıştır
+# Kurulum tamam
 echo
 echo -------------------------------------------------------------------------------------
-echo "K9s'i çalıştırmak için yeni bir ekran açmalısın."
+echo "Helm kurulumu tamamlandı"
 echo -------------------------------------------------------------------------------------
 sleep 2
-echo "Yeni ekranda kullanacğımız komut: k9s"
-sleep 1

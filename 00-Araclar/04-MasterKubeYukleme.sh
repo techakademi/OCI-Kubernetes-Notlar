@@ -1,8 +1,9 @@
 #!/bin/bash
+
 # Bu skript ile, Ubuntu işletim sistemine yeni Kubernetes'in son sürümün yükleme işlemini gerçekleştirebilirsiniz.
 echo
 echo -------------------------------------------------------------------------------------
-echo "Merhaba, Ben Ubuntu Sunucusuna Kubernetes'i kuracak olan Droid'inim."
+echo "Merhaba, Ben Ubuntu Sunucusuna Kubernetes'i kuracak olan Droid'inim. :)"
 echo -------------------------------------------------------------------------------------
 sleep 2
 echo
@@ -154,6 +155,68 @@ sleep 2
 echo
 sudo swapoff -a
 
+# Kubeadm kurulumun başlatabiliriz, bu adımı Master Node üzerinde gerçekleştirmekteyiz.
+echo -------------------------------------------------------------------------------------
+echo "Kubeadm kurulumun başlatıyorum, bu adımı yalnızca Master Node üzerinde gerçekleştirmekteyiz."
+echo -------------------------------------------------------------------------------------
+sleep 2
+echo
+sudo kubeadm init
+sleep 1
+
+# kubectl'ın root olmayan kullanıcılarda çalışabilmesi için, aşağda ki komutları çalıştırıyoruz.
+echo -------------------------------------------------------------------------------------
+echo "kubectl'ın root olmayan kullanıcılarda çalışabilmesi için, işlemleri gerçekleştiriyorum"
+echo -------------------------------------------------------------------------------------
+sleep 2
+echo
+mkdir -p $HOME/.kube
+sleep 1
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sleep 1
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# Pod networkü oluşturma.
+echo -------------------------------------------------------------------------------------
+echo "Pod network'ü için Weave kuruyorum"
+echo -------------------------------------------------------------------------------------
+sleep 2
+echo
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+
+sleep 1
+echo -------------------------------------------------------------------------------------
+echo "Worker node’ların cluster’a katılımlarını gerçekleştirmek için,
+kubernetes kurulum işleminin tamamlanmasının ardından son satırda belirttiği
+kubeadm join ile başlayan komutu worker node’larda root kullanıcısı olarak uygulayarak,
+tümünü kubernetes cluster’ine dahil etmeniz gerekir."
+echo
+echo -------------------------------------------------------------------------------------
+sleep 10
+echo -------------------------------------------------------------------------------------
+echo "Kubernetes Cluster Nodelarını listeliyorum"
+kubectl get nodes
+sleep 2
+
+echo -------------------------------------------------------------------------------------
+sleep 5
+echo -------------------------------------------------------------------------------------
+echo "Master node üzerinde Kubectl autocomplete kurulumunu gerçekleştiriyorum"
+source /usr/share/bash-completion/bash_completion
+sleep 2
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+sleep 2
+
+echo -------------------------------------------------------------------------------------
+sleep 5
+echo -------------------------------------------------------------------------------------
+echo "Nodeları Cluster'a dahil etmek için Join komut çıktısını çalıştırıyorum"
+echo -------------------------------------------------------------------------------------
+echo ""
+kubeadm token create --print-join-command
+sleep 2
+echo ""
 echo -------------------------------------------------------------------------------------
 echo "Kurulum İşlemlerini tamamladım, İyi günler dilerim"
 echo -------------------------------------------------------------------------------------
