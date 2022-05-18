@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: production-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - www.techakademi.com
+    secretName: ssl-sertifika-production
+  rules:
+  - host: www.techakademi.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tech-wordpress-servisi
+            port:
+              number: 80

@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merhaba-dunya
+spec:
+  selector:
+    matchLabels:
+      app: merhaba-dunya
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: merhaba-dunya
+    spec:
+      containers:
+      - name: merhaba-konteyneri
+        image: myoung34/armhf-hello-kubernetes:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: merhaba-servisi
+  labels:
+    app: merhaba-dunya
+spec:
+  type: NodePort
+  selector:
+    app: merhaba-dunya
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+  namespace: default
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: techakademi@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+    - selector: {}
+      http01:
+        ingress:
+          class: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: merhaba-dunya
+  namespace: default
+spec:
+  dnsNames:
+    - merhaba.techakademi.com
+  secretName: merhaba-dunya-tls-production
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: merhaba-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - merhaba.techakademi.com
+    secretName: merhaba-dunya-tls-production
+  rules:
+  - host: merhaba.techakademi.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: merhaba-servisi
+            port:
+              number: 80

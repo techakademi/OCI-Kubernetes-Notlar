@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: whoami-uygulama
+  namespace: default
+spec:
+  dnsNames:
+    - whoami.techakademi.com
+  secretName: whoami-uygulama-tls-production
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: whoami-uygulama
+  namespace: default
+spec:
+  dnsNames:
+    - merhaba.techakademi.com
+  secretName: whoami-uygulama-tls-staging
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer

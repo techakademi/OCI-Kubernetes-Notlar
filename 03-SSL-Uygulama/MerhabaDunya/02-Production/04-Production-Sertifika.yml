@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: merhaba-dunya
+  namespace: default
+spec:
+  dnsNames:
+    - merhaba.techakademi.com
+  secretName: merhaba-dunya-tls-production
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

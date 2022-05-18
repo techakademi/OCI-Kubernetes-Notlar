@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: merhaba-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - merhaba.techakademi.com
+    secretName: merhaba-dunya-tls-staging
+  rules:
+  - host: merhaba.techakademi.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: merhaba-servisi
+            port:
+              number: 80

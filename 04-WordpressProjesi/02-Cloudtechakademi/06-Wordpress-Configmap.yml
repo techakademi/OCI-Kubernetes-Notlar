@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-config-cld
+data:
+  mysql.db.host: mysql-service-cld
+  mysql.db.name: cloudtech
+  mysql.db.prefix: kube_

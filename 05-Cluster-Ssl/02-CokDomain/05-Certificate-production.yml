@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ssl-sertifika-production
+  namespace: default
+spec:
+  secretName: ssl-sertifika-production
+  dnsNames:
+  - www.techakademi.com
+  - www.cloudtechakademi.com
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

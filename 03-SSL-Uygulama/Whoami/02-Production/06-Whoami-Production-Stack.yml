@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami-uygulama
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: whoami-uygulama
+  template:
+    metadata:
+      labels:
+        app: whoami-uygulama
+    spec:
+      containers:
+      - name: whoami-konteyneri
+        image: containous/whoami
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami-servisi
+  labels:
+    app: whoami-uygulama
+spec:
+  type: NodePort
+  selector:
+    app: whoami-uygulama
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+  namespace: default
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: techakademi@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+    - selector: {}
+      http01:
+        ingress:
+          class: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: whoami-uygulama
+  namespace: default
+spec:
+  dnsNames:
+    - whoami.techakademi.com
+  secretName: whoami-uygulama-tls-production
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: whoami-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - whoami.techakademi.com
+    secretName: whoami-uygulama-tls-production
+  rules:
+  - host: whoami.techakademi.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: whoami-servisi
+            port:
+              number: 80
