@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-rancher-ingress
+spec:
+  ingressClassName: nginx
+    tls:
+    - hosts:
+        - rancher.techakademi.com
+      secretName: rancher-demosu-tls-production
+  rules:
+  - host: rancher.techakademi.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: rancher-servisi
+            port:
+              number: 80

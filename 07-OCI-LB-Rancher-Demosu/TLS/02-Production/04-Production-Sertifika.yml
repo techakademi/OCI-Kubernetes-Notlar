@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: rancher-demosu
+  namespace: default
+spec:
+  dnsNames:
+    - rancher.techakademi.com
+  secretName: rancher-demosu-tls-production
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

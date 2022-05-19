@@ -8,6 +8,6 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app.kubernetes.io/name: rancher-demo
+    app.kubernetes.io/name: rancher-demosu
   sessionAffinity: None
   type: ClusterIP
