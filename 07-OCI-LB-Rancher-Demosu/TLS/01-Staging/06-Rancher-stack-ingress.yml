@@ -3,32 +3,33 @@ kind: Deployment
 metadata:
   name: rancher-demosu
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: rancher-demosu
+      app: rancher-demosu
+  replicas: 2
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: rancher-demosu
+        app: rancher-demosu
     spec:
       containers:
-      - image: dalekurt/rancher-demo:latest
-        name: rancher-demosu
+      - name: rancher-demosu
+        image: dalekurt/rancher-demo:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: rancher-servisi
+  labels:
+    app: rancher-demosu
 spec:
+  type: ClusterIP
+  selector:
+    app: rancher-demosu
   ports:
   - port: 80
-    protocol: TCP
     targetPort: 8080
-  selector:
-    app.kubernetes.io/name: rancher-demosu
-  sessionAffinity: None
-  type: ClusterIP
+    protocol: TCP
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -66,16 +67,16 @@ metadata:
   name: nginx-rancher-ingress
 spec:
   ingressClassName: nginx
-    tls:
-    - hosts:
-        - rancher.techakademi.com
-      secretName: rancher-demosu-tls-staging
+  tls:
+  - hosts:
+    - rancher.techakademi.com
+    secretName: rancher-demosu-tls-staging
   rules:
   - host: rancher.techakademi.com
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: rancher-servisi
