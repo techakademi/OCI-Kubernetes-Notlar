@@ -6,8 +6,8 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-      - www.techakademi.com
-      - www.cloudtechakademi.com
+    - www.techakademi.com
+    - www.cloudtechakademi.com
     secretName: ssl-sertifika-production
   rules:
   - host: www.techakademi.com
@@ -20,13 +20,13 @@ spec:
             name: tech-wordpress-servisi
             port:
               number: 80
-    - host: www.cloudtechakademi.com
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: cld-wordpress-servisi
-              port:
-                number: 80
+  - host: www.cloudtechakademi.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cld-wordpress-servisi
+            port:
+              number: 80
