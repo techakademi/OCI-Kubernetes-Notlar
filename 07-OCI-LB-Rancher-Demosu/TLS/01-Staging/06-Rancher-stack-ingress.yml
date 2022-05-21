@@ -39,7 +39,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "Geçerli bir mail adresi yazmalısın"
+    email: techakademi@gmail.com
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
@@ -55,7 +55,7 @@ metadata:
   namespace: default
 spec:
   dnsNames:
-    - rancher.techakademi.com
+    - demoranch.techakademi.com
   secretName: rancher-demosu-tls-staging
   issuerRef:
     name: letsencrypt-staging
@@ -69,10 +69,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - rancher.techakademi.com
+    - demoranch.techakademi.com
     secretName: rancher-demosu-tls-staging
   rules:
-  - host: rancher.techakademi.com
+  - host: demoranch.techakademi.com
     http:
       paths:
       - pathType: Prefix

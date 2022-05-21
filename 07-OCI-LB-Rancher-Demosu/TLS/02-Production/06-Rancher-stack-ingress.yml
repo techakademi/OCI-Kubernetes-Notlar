@@ -26,8 +26,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app.kubernetes.io/name: rancher-demosu
-  sessionAffinity: None
+    app: rancher-demosu
   type: ClusterIP
 ---
 apiVersion: cert-manager.io/v1
@@ -38,7 +37,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "Geçerli bir mail adresi yazmalısın"
+    email: techakademi@gmail.com
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
@@ -54,7 +53,7 @@ metadata:
   namespace: default
 spec:
   dnsNames:
-    - rancher.techakademi.com
+    - demoranch.techakademi.com
   secretName: rancher-demosu-tls-production
   issuerRef:
     name: letsencrypt-production
@@ -68,14 +67,14 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - rancher.techakademi.com
+    - demoranch.techakademi.com
     secretName: rancher-demosu-tls-production
   rules:
-  - host: rancher.techakademi.com
+  - host: demoranch.techakademi.com
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: rancher-servisi

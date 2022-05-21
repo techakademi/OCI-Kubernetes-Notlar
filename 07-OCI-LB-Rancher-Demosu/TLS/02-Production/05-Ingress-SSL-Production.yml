@@ -6,14 +6,14 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - rancher.techakademi.com
+    - demoranch.techakademi.com
     secretName: rancher-demosu-tls-production
   rules:
-  - host: rancher.techakademi.com
+  - host: demoranch.techakademi.com
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: rancher-servisi

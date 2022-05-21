@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "Geçerli bir mail adresi yazmalısın"
+    email: techakademi@gmail.com
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:

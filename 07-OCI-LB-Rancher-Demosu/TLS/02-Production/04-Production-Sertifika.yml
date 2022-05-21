@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   dnsNames:
-    - rancher.techakademi.com
+    - demoranch.techakademi.com
   secretName: rancher-demosu-tls-production
   issuerRef:
     name: letsencrypt-production
