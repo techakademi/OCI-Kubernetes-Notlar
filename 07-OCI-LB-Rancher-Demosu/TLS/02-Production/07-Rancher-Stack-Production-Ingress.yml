@@ -70,7 +70,7 @@ spec:
   tls:
   - hosts:
     - demoranch.techakademi.com
-    secretName: rancher-demosu-tls-production
+    secretName: rancher-demosu-tls-staging
   rules:
   - host: demoranch.techakademi.com
     http:
