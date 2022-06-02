@@ -29,12 +29,10 @@ sudo iptables -L
 sleep 2
 echo Degisiklikleri kayit ediyorum.
 echo ---------------------------
-sudo sudo netfilter-persistent save
-sudo sudo /sbin/iptables-save
+sudo /sbin/iptables-save
 sleep 2
+echo ---------------------------
 echo Sunucuyu Reboot ediyorum.
 echo ---------------------------
 sleep 5
-sudo sudo reboot
-echo islemi tamamlama zamani:
-date +"%H:%M:%S"
+sudo reboot
