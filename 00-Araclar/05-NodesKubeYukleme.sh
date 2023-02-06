@@ -82,7 +82,7 @@ echo
 echo -------------------------------------------------------------------------------------
 echo "Kubernetes kubeadm, kubelet, kubectl ve Containerd paketlerini yüklüyorum."
 echo -------------------------------------------------------------------------------------
-sudo apt install  kubelet kubeadm kubectl containerd -y
+sudo apt-get install kubelet=1.25.6-00 kubeadm=1.25.6-00 kubectl=1.25.6-00 -y
 sleep 2
 
 # Kubernetes & Containerd update hol komutunu çalıştır.
